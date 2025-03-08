@@ -3,5 +3,5 @@
 
 ### Main Tools
 <div width="100%">
-  <img align="left" src="https://raw.githubusercontent.com/ydmins/YdMinS/main/icons/java.png" alt="java" height="50px"/>
+  <img align="left" src="https://i.namu.wiki/i/XT1v1JW0SNsJlnYznEwoe6kMFeTk7lfg-OmdEsPkG8DT1eYmXSzULW4Ci3WYfWFMf8ZdjqyKxVUSBkriQGo_nZv8qYTlMA4iFBHpYljpqFCuFpFARTfDRWlLb22hm5rRETNkKPCXLx1mgZQFMMhmGg.svg" alt="java" height="50px"/>
   <img align="left" src="https://raw.githubusercontent.com/ydmins/YdMinS/main/icons/kotlin.png" alt="kotlin" height="50px"/>
