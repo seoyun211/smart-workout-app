@@ -4,4 +4,4 @@
 ### Main Tools
 <div width="100%">
   <img align="left" src="https://i.namu.wiki/i/XT1v1JW0SNsJlnYznEwoe6kMFeTk7lfg-OmdEsPkG8DT1eYmXSzULW4Ci3WYfWFMf8ZdjqyKxVUSBkriQGo_nZv8qYTlMA4iFBHpYljpqFCuFpFARTfDRWlLb22hm5rRETNkKPCXLx1mgZQFMMhmGg.svg" alt="java" height="50px"/>
-  <img align="left" src="https://raw.githubusercontent.com/ydmins/YdMinS/main/icons/kotlin.png" alt="kotlin" height="50px"/>
+  <img align="left" src="https://velog.velcdn.com/images/gmlstjq123/post/ffa9090f-0121-4bb5-a59c-14f50fc94fff/image.png" alt="kotlin" height="50px"/>
