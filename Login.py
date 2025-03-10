@@ -22,12 +22,12 @@ class LoginScreen(Screen):
         self.layout.pos_hint = {'center_x': 0.5, 'center_y': 0.5}
 
         # 이미지 추가 (중앙 큰 이미지)
-        image = Image(source=r"C:\Users\23H2\Desktop\Login.png", size_hint=(1, 0.3))
+        image = Image(source="../images/Login.png", size_hint=(1, 0.3))
         self.layout.add_widget(image)
 
         # 이메일 입력
         email_layout = BoxLayout(orientation='horizontal', size_hint=(1, 0.1), spacing=10)
-        email_icon = Image(source=r"C:\Users\23H2\Desktop\email.png", size_hint=(0.15, 1))
+        email_icon = Image(source="../images/email.png", size_hint=(0.15, 1))
         self.email_input = TextInput(hint_text="Email ID", multiline=False, size_hint=(0.85, 1))
         email_layout.add_widget(email_icon)
         email_layout.add_widget(self.email_input)
@@ -35,7 +35,7 @@ class LoginScreen(Screen):
 
         # 비밀번호 입력
         password_layout = BoxLayout(orientation='horizontal', size_hint=(1, 0.1), spacing=10)
-        password_icon = Image(source=r"C:\Users\23H2\Desktop\password.png", size_hint=(0.15, 1))
+        password_icon = Image(source="../images/password.png", size_hint=(0.15, 1))
         self.password_input = TextInput(hint_text="Password", multiline=False, password=True, size_hint=(0.85, 1))
         password_layout.add_widget(password_icon)
         password_layout.add_widget(self.password_input)
