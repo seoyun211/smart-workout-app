@@ -7,7 +7,9 @@ from kivy.uix.popup import Popup
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.checkbox import CheckBox
 from kivy.uix.image import Image
-from kivy.graphics import Color, Rectangle
+from kivy.uix.tabbedpanel import TabbedPanel, TabbedPanelItem
+from kivy.graphics import Color
+from kivy.graphics import Rectangle
 
 class LoginScreen(Screen):
     def __init__(self, **kwargs):
@@ -60,12 +62,67 @@ class LoginScreen(Screen):
         # 로그인 로직 (임시로 항상 성공 처리)
         self.manager.current = 'home'
 
+
 class HomeScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        
+        # 메인 레이아웃
         self.layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
-        self.layout.add_widget(Label(text="Home Screen"))
+
+        # 버튼 레이아웃
+        button_layout = BoxLayout(orientation='horizontal', size_hint=(1, 0.1), spacing=20)
+
+        # "맞춤 운동" 버튼
+        custom_exercise_button = Button(text='a', size_hint=(None, 1), width=200)
+        custom_exercise_button.bind(on_press=self.show_custom_exercise)
+        button_layout.add_widget(custom_exercise_button)
+
+        # "운동 추적" 버튼
+        exercise_tracking_button = Button(text='b', size_hint=(None, 1), width=200)
+        exercise_tracking_button.bind(on_press=self.show_exercise_tracking)
+        button_layout.add_widget(exercise_tracking_button)
+
+        # 버튼 레이아웃을 화면에 추가
+        self.layout.add_widget(button_layout)
+
+        # 콘텐츠를 추가할 레이아웃
+        self.content_layout = BoxLayout(orientation='vertical', size_hint=(1, 0.9))
+        self.layout.add_widget(self.content_layout)
+
+        # 초기 콘텐츠
+        self.show_custom_exercise(None)
+
         self.add_widget(self.layout)
+
+    def show_custom_exercise(self, instance):
+        # 기존 탭 대신 맞춤 운동 화면을 표시
+        self.content_layout.clear_widgets()
+        self.content_layout.add_widget(Label(text="맞춤 운동 화면"))
+
+        # "aa" 버튼 추가
+        aa_button = Button(text="aa", size_hint=(None, 0.1), height=50)
+        aa_button.bind(on_press=self.show_aa_tab)
+        self.content_layout.add_widget(aa_button)
+
+        # "aaa" 버튼 추가
+        aaa_button = Button(text="aaa", size_hint=(None, 0.1), height=50)
+        aaa_button.bind(on_press=self.show_aaa_tab)
+        self.content_layout.add_widget(aaa_button)
+
+    def show_exercise_tracking(self, instance):
+        # 운동 추적 화면을 표시
+        self.content_layout.clear_widgets()
+        self.content_layout.add_widget(Label(text="운동 추적 화면"))
+
+    def show_aa_tab(self, instance):
+        self.content_layout.clear_widgets()
+        self.content_layout.add_widget(Label(text="This is the aa tab"))
+
+    def show_aaa_tab(self, instance):
+        self.content_layout.clear_widgets()
+        self.content_layout.add_widget(Label(text="This is the aaa tab"))
+
 
 class HealthTrackerApp(App):
     def build(self):
