@@ -11,11 +11,28 @@ from kivy.graphics import Color, Rectangle
 
 # 사용자 데이터를 저장할 JSON 파일
 USER_DATA_FILE = "users.json"
+CONFIG_FILE = "config.json"
 
-# 사용자 데이터 저장 함수
+# 사용자 데이터 저장 및 불러오기 함수
 def save_users(users):
     with open(USER_DATA_FILE, "w") as f:
         json.dump(users, f)
+
+def load_users():
+    if os.path.exists(USER_DATA_FILE):
+        with open(USER_DATA_FILE, "r") as f:
+            return json.load(f)
+    return {}
+
+def save_config(data):
+    with open(CONFIG_FILE, "w") as f:
+        json.dump(data, f)
+
+def load_config():
+    if os.path.exists(CONFIG_FILE):
+        with open(CONFIG_FILE, "r") as f:
+            return json.load(f)
+    return {}
 
 # 사용자 데이터 불러오기 함수
 def load_users():
