@@ -23,13 +23,13 @@ class HeightWeightScreen(Screen):
         self.layout.pos_hint = {'center_x': 0.5, 'center_y': 0.5}
 
         # 타이틀 레이블
-        title_label = Label(text="키 & 몸무게를 입력하세요", font_size='22sp', font_name="malgun.ttf", color=(0, 0, 0, 1), size_hint=(1, 0.15))
+        title_label = Label(text="키 & 몸무게를 입력하세요", font_size='22sp', font_name="Arial", color=(0, 0, 0, 1), size_hint=(1, 0.15))
         self.layout.add_widget(title_label)
 
         # 키 입력 필드
         stature_layout = BoxLayout(orientation='horizontal', size_hint=(1, 0.14), spacing=15)
         stature_icon = Image(source="images/키.png", size_hint=(0.25, 1))
-        self.stature_input = TextInput(hint_text="키(cm)", multiline=False, size_hint=(0.85, 1), font_name="malgun.ttf")
+        self.stature_input = TextInput(hint_text="키(cm)", multiline=False, size_hint=(0.85, 1), font_name="Arial")
         stature_layout.add_widget(stature_icon)
         stature_layout.add_widget(self.stature_input)
         self.layout.add_widget(stature_layout)
@@ -37,13 +37,13 @@ class HeightWeightScreen(Screen):
         # 몸무게 입력 필드
         weight_layout = BoxLayout(orientation='horizontal', size_hint=(1, 0.14), spacing=15)
         weight_icon = Image(source="images/몸무게.png", size_hint=(0.25, 1))
-        self.weight_input = TextInput(hint_text="몸무게(kg)", multiline=False, size_hint=(0.85, 1), font_name="malgun.ttf")
+        self.weight_input = TextInput(hint_text="몸무게(kg)", multiline=False, size_hint=(0.85, 1), font_name="Arial")
         weight_layout.add_widget(weight_icon)
         weight_layout.add_widget(self.weight_input)
         self.layout.add_widget(weight_layout)
 
         # BMI 계산 버튼
-        self.calculate_button = Button(text="BMI 계산", size_hint=(1, 0.15), font_name="malgun.ttf", background_color=(0.5, 0.5, 0.5, 1))
+        self.calculate_button = Button(text="BMI 계산", size_hint=(1, 0.15), font_name="Arial", background_color=(0.5, 0.5, 0.5, 1))
         self.calculate_button.bind(on_press=self.calculate_bmi)
         self.layout.add_widget(self.calculate_button)
 
@@ -68,8 +68,8 @@ class HeightWeightScreen(Screen):
     # BMI 결과를 보여주는 팝업
     def show_bmi_result_popup(self, bmi_result):
         popup_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
-        result_label = Label(text=bmi_result, font_size='20sp', font_name="malgun.ttf")
-        close_button = Button(text="확인", size_hint=(1, 0.2), font_name="malgun.ttf")
+        result_label = Label(text=bmi_result, font_size='20sp', font_name="Arial")
+        close_button = Button(text="확인", size_hint=(1, 0.2), font_name="Arial")
         popup_layout.add_widget(result_label)
         popup_layout.add_widget(close_button)
 
@@ -80,8 +80,8 @@ class HeightWeightScreen(Screen):
     # 입력 오류 팝업
     def show_error_popup(self):
         popup_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
-        error_label = Label(text="입력 오류! 숫자만 입력하세요.", font_size='20sp', font_name="malgun.ttf")
-        close_button = Button(text="확인", size_hint=(1, 0.2), font_name="malgun.ttf")
+        error_label = Label(text="입력 오류! 숫자만 입력하세요.", font_size='20sp', font_name="Arial")
+        close_button = Button(text="확인", size_hint=(1, 0.2), font_name="Arial")
         popup_layout.add_widget(error_label)
         popup_layout.add_widget(close_button)
 

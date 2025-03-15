@@ -84,8 +84,8 @@ class LoginScreen(Screen):
 
     def show_error_popup(self):
         popup_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
-        popup_label = Label(text="ID와 Password가 일치하지 않습니다.", font_size='20sp',font_name="malgun.ttf")
-        close_button = Button(text="확인", size_hint=(1, 0.2), font_name="malgun.ttf")
+        popup_label = Label(text="ID와 Password가 일치하지 않습니다.", font_size='20sp', font_name="Arial")
+        close_button = Button(text="확인", size_hint=(1, 0.2), font_name="Arial")
         popup_layout.add_widget(popup_label)
         popup_layout.add_widget(close_button)
 
