@@ -39,7 +39,7 @@ class SignUpScreen(Screen):
         self.layout.pos_hint = {'center_x': 0.5, 'center_y': 0.5}
 
         # 화면에 제목 추가
-        title_label = Label(text="회원가입", font_size='24sp', font_name="malgun.ttf")
+        title_label = Label(text="회원가입", font_size='24sp', font_name="Arial")
         self.layout.add_widget(title_label)
 
         # 이메일 입력 필드 추가
@@ -55,12 +55,12 @@ class SignUpScreen(Screen):
         self.layout.add_widget(self.confirm_password_input)
 
         # 회원가입 버튼 추가
-        sign_up_button = Button(text="회원가입", size_hint=(1, 0.2), background_color=(0, 0, 1, 1), font_name="malgun.ttf")
+        sign_up_button = Button(text="회원가입", size_hint=(1, 0.2), background_color=(0, 0, 1, 1), font_name="Arial")
         sign_up_button.bind(on_press=self.on_sign_up)
         self.layout.add_widget(sign_up_button)
 
         # 뒤로가기 버튼 추가
-        back_button = Button(text="뒤로가기", size_hint=(1, 0.2), background_color=(1, 0, 0, 1), font_name="malgun.ttf")
+        back_button = Button(text="뒤로가기", size_hint=(1, 0.2), background_color=(1, 0, 0, 1), font_name="Arial")
         back_button.bind(on_press=self.go_back)
         self.layout.add_widget(back_button)
 
@@ -101,8 +101,8 @@ class SignUpScreen(Screen):
 
     def show_popup(self, title, message):
         popup_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
-        popup_label = Label(text=message, font_size='18sp', font_name="malgun.ttf")
-        close_button = Button(text="확인", size_hint=(1, 0.2), font_name="malgun.ttf")
+        popup_label = Label(text=message, font_size='18sp', font_name="Arial")
+        close_button = Button(text="확인", size_hint=(1, 0.2), font_name="Arial")
         popup_layout.add_widget(popup_label)
         popup_layout.add_widget(close_button)
 
