@@ -4,6 +4,7 @@ from Login_Screen import LoginScreen
 from Gender_Screen import GenderSelectionScreen
 from Height_Weight_Screen import HeightWeightScreen
 from BMI_Screen import BMIScreen
+from Exercise_Recommendation_Screen import ExerciseRecommendationScreen 
 
 class HealthTrackerApp(App):
     def build(self):
@@ -12,11 +13,15 @@ class HealthTrackerApp(App):
         self.login_screen = LoginScreen(name='login_screen')
         self.gender_selection_screen = GenderSelectionScreen(name='gender_selection')
         self.height_weight_screen = HeightWeightScreen(name='height_weight_screen')
+        self.bmi_screen = BMIScreen(name='bmi_screen')
+        self.exercise_screen = ExerciseRecommendationScreen(name='exercise_screen')
 
         self.screen_manager.add_widget(self.login_screen)
         self.screen_manager.add_widget(self.gender_selection_screen)
         self.screen_manager.add_widget(self.height_weight_screen)
-
+        self.screen_manager.add_widget(self.bmi_screen)
+        self.screen_manager.add_widget(self.exercise_screen)
+        
         return self.screen_manager
 
 if __name__ == '__main__':
