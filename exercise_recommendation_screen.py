@@ -2,75 +2,64 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.button import Button
+from kivy.uix.image import Image
 
-class BMIScreen(Screen):
+class ExerciseRecommendationScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.height = 0
-        self.weight = 0
 
+        # 전체 레이아웃 (수직 배치)
         self.layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
 
-        # BMI 결과 라벨
-        self.bmi_label = Label(text="당신의 BMI: ", font_size='24sp')
-        self.result_label = Label(text="분류: ", font_size='28sp', bold=True)
-        self.layout.add_widget(self.bmi_label)
-        self.layout.add_widget(self.result_label)
+        # 운동 추천 제목
+        self.title_label = Label(text="🏋️ 운동 추천 🏋️", font_size='24sp', bold=True)
+        self.layout.add_widget(self.title_label)
 
-        # 운동 추천 화면으로 이동하는 버튼 추가 ✅
-        self.exercise_button = Button(text="운동 추천 보기", size_hint=(1, 0.15))
-        self.exercise_button.bind(on_press=self.go_to_exercise_recommendation)
-        self.layout.add_widget(self.exercise_button)
+        # BMI 결과별 추천 운동 데이터 (운동 리스트 + 이미지)
+        self.exercise_data = {
+            "저체중": {
+                "운동": "💪 근력 운동: 스쿼트, 푸쉬업, 데드리프트",
+                "이미지": "images/weight_gain.png"
+            },
+            "정상체중": {
+                "운동": "🏃 유산소 + 근력: 러닝, 요가, 필라테스",
+                "이미지": "images/normal.png"
+            },
+            "과체중": {
+                "운동": "🚴 유산소 운동: 빠르게 걷기, 사이클, 수영",
+                "이미지": "images/overweight.png"
+            },
+            "비만": {
+                "운동": "🔥 고강도 유산소: HIIT, 인터벌 트레이닝",
+                "이미지": "images/obesity.png"
+            }
+        }
+
+        # 운동 추천 라벨 (동적으로 업데이트될 부분)
+        self.exercise_label = Label(text="", font_size='20sp')
+        self.layout.add_widget(self.exercise_label)
+
+        # 운동 방법 이미지 (동적으로 업데이트될 부분)
+        self.exercise_image = Image(source="", size_hint=(1, 0.5))
+        self.layout.add_widget(self.exercise_image)
 
         # 뒤로 가기 버튼
         self.back_button = Button(text="뒤로 가기", size_hint=(1, 0.15))
         self.back_button.bind(on_press=self.go_back)
         self.layout.add_widget(self.back_button)
 
+        # 레이아웃 추가
         self.add_widget(self.layout)
 
-    def set_user_data(self, height, weight):
-        """ 사용자의 키와 몸무게 값을 설정하고 BMI 정보를 업데이트 """
-        self.height = height
-        self.weight = weight
-        self.update_bmi_info()
-
-    def update_bmi_info(self):
-        """ BMI 값과 분류를 업데이트 """
-        if self.height > 0 and self.weight > 0:
-            bmi_value = self.calculate_bmi()
-            self.bmi_label.text = f'당신의 BMI: {bmi_value:.2f}'
-            category = self.get_bmi_category()
-            self.result_label.text = f'분류: {category}'
-
-            # BMI 카테고리를 ExerciseRecommendationScreen에 전달 ✅
-            exercise_screen = self.manager.get_screen("exercise_screen")
-            exercise_screen.set_bmi_category(category)
-
+    def set_bmi_category(self, category):
+        """ BMI 카테고리에 따라 운동 추천을 업데이트하는 함수 """
+        if category in self.exercise_data:
+            self.exercise_label.text = f"추천 운동: {self.exercise_data[category]['운동']}"
+            self.exercise_image.source = self.exercise_data[category]['이미지']
         else:
-            self.bmi_label.text = "입력된 값이 올바르지 않습니다."
-            self.result_label.text = ""
-
-    def calculate_bmi(self):
-        if self.height > 0:
-            return self.weight / (self.height / 100) ** 2
-        return 0  # 잘못된 값이 들어왔을 경우 0 반환
-
-    def get_bmi_category(self):
-        bmi = self.calculate_bmi()
-        if bmi < 18.5:
-            return '저체중'
-        elif 18.5 <= bmi < 25:
-            return '정상체중'
-        elif 25 <= bmi < 30:
-            return '과체중'
-        else:
-            return '비만'
-
-    def go_to_exercise_recommendation(self, instance):
-        """ 운동 추천 화면으로 이동하는 함수 ✅ """
-        self.manager.current = "exercise_screen"
+            self.exercise_label.text = "운동 추천 데이터를 찾을 수 없습니다."
+            self.exercise_image.source = ""
 
     def go_back(self, instance):
-        """ 이전 화면(키/몸무게 입력 화면)으로 이동 """
-        self.manager.current = 'height_weight_screen'
+        """ 이전 화면(BMI 결과 화면)으로 돌아가기 """
+        self.manager.current = "bmi_screen"
