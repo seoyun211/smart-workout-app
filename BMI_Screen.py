@@ -68,7 +68,8 @@ class BMIScreen(Screen):
     
     def go_to_exercise_recommendation(self, instance):
         """ 운동 추천 화면으로 이동하는 함수 ✅ """
-        self.manager.current = "exercise_screen"
+        if self.manager:
+            self.manager.current = "exercise_screen"
 
     def go_back(self, instance):
         """ 이전 화면(키/몸무게 입력 화면)으로 이동 """

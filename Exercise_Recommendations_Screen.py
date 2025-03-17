@@ -12,30 +12,30 @@ class ExerciseRecommendationScreen(Screen):
         self.layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
 
         # 운동 추천 제목
-        self.title_label = Label(text="🏋️ 운동 추천 🏋️", font_size='24sp', bold=True)
+        self.title_label = Label(text="운동 추천", font_size='24sp', bold=True)
         self.layout.add_widget(self.title_label)
 
         # BMI 결과별 추천 운동 데이터 (운동 리스트 + 이미지)
         self.exercise_data = {
             "저체중": {
-                "운동": "💪 근력 운동: 스쿼트, 푸쉬업, 데드리프트",
-                "이미지": "images/weight_gain.png"
+                "운동": "근력 운동 (스쿼트, 푸쉬업, 데드리프트)",
+                "이미지": "images/weight_gain.png"  # 저체중 운동 이미지
             },
             "정상체중": {
-                "운동": "🏃 유산소 + 근력: 러닝, 요가, 필라테스",
-                "이미지": "images/normal.png"
+                "운동": "유산소 + 근력 운동 (러닝, 요가, 필라테스)",
+                "이미지": "images/normal.png"  # 정상체중 운동 이미지
             },
             "과체중": {
-                "운동": "🚴 유산소 운동: 빠르게 걷기, 사이클, 수영",
-                "이미지": "images/overweight.png"
+                "운동": "유산소 중심 운동 (빠르게 걷기, 사이클, 수영)",
+                "이미지": "images/overweight.png"  # 과체중 운동 이미지
             },
             "비만": {
-                "운동": "🔥 고강도 유산소: HIIT, 인터벌 트레이닝",
-                "이미지": "images/obesity.png"
+                "운동": "고강도 유산소 운동 (HIIT, 인터벌 트레이닝)",
+                "이미지": "images/obesity.png"  # 비만 운동 이미지
             }
         }
 
-        # 운동 추천 라벨 (동적으로 업데이트될 부분)
+        # 운동 추천 리스트 (동적으로 업데이트될 부분)
         self.exercise_label = Label(text="", font_size='20sp')
         self.layout.add_widget(self.exercise_label)
 
@@ -61,5 +61,5 @@ class ExerciseRecommendationScreen(Screen):
             self.exercise_image.source = ""
 
     def go_back(self, instance):
-        """ 이전 화면(BMI 결과 화면)으로 돌아가기 """
+        """ 이전 화면(BMI 화면)으로 돌아가기 """
         self.manager.current = "bmi_screen"
