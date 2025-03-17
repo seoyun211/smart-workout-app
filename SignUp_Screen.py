@@ -32,7 +32,6 @@ def hash_password(password):
     return hashed
 
 
-
 from kivy.uix.button import Button
 from kivy.app import App
 
