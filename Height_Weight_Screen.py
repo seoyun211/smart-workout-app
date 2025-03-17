@@ -7,7 +7,6 @@ from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.uix.image import Image
 from kivy.graphics import Color, Rectangle  # Color와 Rectangle을 추가합니다.
-from kivy.uix.button import Button
 from kivy.app import App
 
 def get_korean_font():
@@ -92,18 +91,27 @@ class HeightWeightScreen(Screen):
             self.show_bmi_result_popup(bmi_result)
         except ValueError:
             self.show_error_popup()
-
-    # BMI 결과를 보여주는 팝업
+    
     def show_bmi_result_popup(self, bmi_result):
         popup_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
-        result_label = Label(text=bmi_result, font_size='20sp', font_name=KOREAN_FONT)
-        close_button = Button(text="확인", size_hint=(1, 0.2), font_name=KOREAN_FONT)
-        popup_layout.add_widget(result_label)
-        popup_layout.add_widget(close_button)
 
-        popup = Popup(title="BMI 계산 결과", content=popup_layout, size_hint=(0.6, 0.4))
+    # 제목을 Label로 교체하고 한글 폰트 적용
+        title_label = Label(text="BMI 계산 결과", font_size='20sp', font_name=KOREAN_FONT, color=(0, 0, 0, 1))
+    
+    # BMI 결과 표시
+        result_label = Label(text=bmi_result, font_size='20sp', font_name=KOREAN_FONT, color=(0, 0, 0, 1))
+
+    # 버튼
+        close_button = Button(text="확인", size_hint=(1, 0.2), font_name=KOREAN_FONT)
+        popup_layout.add_widget(title_label)  # 제목 레이블을 추가
+        popup_layout.add_widget(result_label)  # 결과 레이블을 추가
+        popup_layout.add_widget(close_button)  # 버튼을 추가
+
+        popup = Popup(title="", content=popup_layout, size_hint=(0.6, 0.4))  # title을 빈 문자열로 설정
         close_button.bind(on_press=popup.dismiss)
         popup.open()
+
+
 
     # 입력 오류 팝업
     def show_error_popup(self):
@@ -116,4 +124,3 @@ class HeightWeightScreen(Screen):
         popup = Popup(title="Error", content=popup_layout, size_hint=(0.6, 0.4))
         close_button.bind(on_press=popup.dismiss)
         popup.open()
-
