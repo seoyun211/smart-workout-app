@@ -7,6 +7,7 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 import platform
+import os
 
 # 사용자 데이터를 저장할 파일 경로
 USER_FILE = "users.pkl"
@@ -30,17 +31,29 @@ def hash_password(password):
     hashed = bcrypt.hashpw(password.encode('utf-8'), salt)  # 비밀번호 해싱
     return hashed
 
-# 운영체제에 따라 폰트 경로 설정
+from kivy.uix.button import Button
+from kivy.app import App
+
 def get_korean_font():
     system = platform.system()
-    if system == "Windows":
-        return "malgun.ttf"  # 윈도우 기본 한글 폰트 (맑은 고딕)
-    elif system == "Darwin":  # macOS
-        return "/System/Library/Fonts/Supplemental/AppleSDGothicNeo.ttc"  # macOS 기본 한글 폰트
-    else:
-        return "NotoSansCJK-Regular.otf"  # 프로젝트 내부 폰트 (리눅스 대비)
+    # DejaVuSans는 대부분의 시스템에 기본적으로 제공되는 폰트입니다.
+    return "DejaVuSans.ttf"  # macOS와 리눅스에서 공통적으로 사용할 수 있는 폰트
 
 KOREAN_FONT = get_korean_font()
+
+class MyApp(App):
+    def build(self):
+        # DejaVuSans 폰트를 적용한 버튼을 생성합니다.
+        login_button = Button(
+            text="LOGIN", 
+            size_hint=(1, 0.2), 
+            background_color=(0, 0, 0, 1), 
+            font_name=KOREAN_FONT
+        )
+        return login_button
+
+if __name__ == "__main__":
+    MyApp().run()
 
 # 회원가입 화면 클래스
 class SignUpScreen(Screen):
