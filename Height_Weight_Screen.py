@@ -7,7 +7,6 @@ from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.uix.image import Image
 from kivy.graphics import Color, Rectangle
-from kivy.app import App
 
 def get_korean_font():
     system = platform.system()
@@ -51,6 +50,7 @@ class HeightWeightScreen(Screen):
         self.calculate_button = Button(text="BMI 계산", size_hint=(1, 0.15), font_name=KOREAN_FONT, background_color=(0.5, 0.5, 0.5, 1))
         self.calculate_button.bind(on_press=self.calculate_bmi)
         self.layout.add_widget(self.calculate_button)
+
         self.add_widget(self.layout)
 
     def _update_rect(self, instance, value):
@@ -62,9 +62,13 @@ class HeightWeightScreen(Screen):
             height = float(self.stature_input.text) / 100
             weight = float(self.weight_input.text)
             bmi = weight / (height ** 2)
-            bmi_result = f"BMI: {bmi:.2f}"
             category = self.get_bmi_category(bmi)
-            self.show_bmi_result_popup(bmi_result, category)
+
+            # 🚀 운동 추천 화면으로 이동 + BMI 카테고리 전달
+            exercise_screen = self.manager.get_screen("exercise_recommendation")
+            exercise_screen.set_bmi_category(category)
+            self.manager.current = "exercise_recommendation"
+
         except ValueError:
             self.show_error_popup()
 
@@ -72,35 +76,11 @@ class HeightWeightScreen(Screen):
         if bmi < 18.5:
             return "저체중"
         elif 18.5 <= bmi < 25:
-            return "정상"
+            return "정상체중"
         elif 25 <= bmi < 30:
             return "과체중"
         else:
             return "비만"
-
-    def show_bmi_result_popup(self, bmi_result, category):
-        popup_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
-        title_label = Label(text="BMI 계산 결과", font_size='20sp', font_name=KOREAN_FONT, color=(0, 0, 0, 1))
-        result_label = Label(text=bmi_result, font_size='20sp', font_name=KOREAN_FONT, color=(0, 0, 0, 1))
-        category_label = Label(text=f"{category}", font_size='20sp', font_name=KOREAN_FONT,
-        color=(
-        (0, 0, 1, 1) if category == "저체중" else  # 파란색
-        (0, 1, 0, 1) if category == "정상" else   # 초록색
-        (1, 1, 0, 1) if category == "과체중" else # 노란색
-        (1, 0, 0, 1)  # 비만 (빨간색)
-        )
-)
-
-        close_button = Button(text="확인", size_hint=(1, 0.2), font_name=KOREAN_FONT)
-        
-        popup_layout.add_widget(title_label)
-        popup_layout.add_widget(result_label)
-        popup_layout.add_widget(category_label)
-        popup_layout.add_widget(close_button)
-
-        popup = Popup(title="", content=popup_layout, size_hint=(0.6, 0.4))
-        close_button.bind(on_press=popup.dismiss)
-        popup.open()
 
     def show_error_popup(self):
         popup_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
@@ -112,4 +92,5 @@ class HeightWeightScreen(Screen):
         popup = Popup(title="Error", content=popup_layout, size_hint=(0.6, 0.4))
         close_button.bind(on_press=popup.dismiss)
         popup.open()
+
 
