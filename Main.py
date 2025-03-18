@@ -4,6 +4,7 @@ from Login_Screen import LoginScreen
 from Gender_Screen import GenderSelectionScreen
 from Height_Weight_Screen import HeightWeightScreen
 from SignUp_Screen import SignUpScreen
+from BMI_Screen import BMIScreen
 
 class HealthTrackerApp(App):
     def build(self):
