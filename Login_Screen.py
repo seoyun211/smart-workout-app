@@ -9,6 +9,7 @@ from kivy.uix.image import Image
 from kivy.uix.popup import Popup
 from kivy.graphics import Color, Rectangle
 from kivy.uix.screenmanager import Screen
+import platform
 
 # 사용자 데이터를 저장할 JSON 파일
 USER_DATA_FILE = "users.json"
@@ -27,6 +28,18 @@ def load_users():
 
 # 기존 사용자 데이터 불러오기
 users = load_users()
+
+# 운영체제에 따라 폰트 경로 설정
+def get_korean_font():
+    system = platform.system()
+    if system == "Windows":
+        return "malgun.ttf"  # 윈도우 기본 한글 폰트 (맑은 고딕)
+    elif system == "Darwin":  # macOS
+        return "/System/Library/Fonts/Supplemental/AppleSDGothicNeo.ttc"  # macOS 기본 한글 폰트
+    else:
+        return "NotoSansCJK-Regular.otf"  # 프로젝트 내부 폰트 (리눅스 대비)
+
+KOREAN_FONT = get_korean_font()
 
 class LoginScreen(Screen):
     def __init__(self, **kwargs):
@@ -60,11 +73,11 @@ class LoginScreen(Screen):
         forgot_button = Button(text="Forgot Password?", size_hint=(1, 0.1), background_color=(0, 0, 0, 0), color=(0, 0, 1, 1))
         self.layout.add_widget(forgot_button)
 
-        self.login_button = Button(text="LOGIN", size_hint=(1, 0.2), background_color=(0, 0, 0, 1))
+        self.login_button = Button(text="LOGIN", size_hint=(1, 0.2), background_color=(0, 0, 0, 1), font_name=KOREAN_FONT)
         self.login_button.bind(on_press=self.on_login)
         self.layout.add_widget(self.login_button)
 
-        sign_up_button = Button(text="Sign Up", size_hint=(1, 0.1), background_color=(0, 0, 0, 1), color=(0, 0, 1, 1))
+        sign_up_button = Button(text="Sign Up", size_hint=(1, 0.1), background_color=(0, 0, 0, 1), color=(0, 0, 1, 1), font_name=KOREAN_FONT)
         sign_up_button.bind(on_press=self.on_sign_up)
         self.layout.add_widget(sign_up_button)
 
@@ -84,8 +97,8 @@ class LoginScreen(Screen):
 
     def show_error_popup(self):
         popup_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
-        popup_label = Label(text="ID와 Password가 일치하지 않습니다.", font_size='20sp',font_name="malgun.ttf")
-        close_button = Button(text="확인", size_hint=(1, 0.2), font_name="malgun.ttf")
+        popup_label = Label(text="ID와 Password가 일치하지 않습니다.", font_size='20sp', font_name=KOREAN_FONT)
+        close_button = Button(text="확인", size_hint=(1, 0.2), font_name=KOREAN_FONT)
         popup_layout.add_widget(popup_label)
         popup_layout.add_widget(close_button)
 
