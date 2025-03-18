@@ -88,9 +88,10 @@ class BMIScreen(Screen):
             self.result_label.text = ""
 
     def calculate_bmi(self):
-        if self.height > 0:
-            return self.weight / (self.height / 100) ** 2
-        return 0  # 잘못된 값이 들어왔을 경우 0 반환
+        try:
+            return round(self.weight / ((self.height / 100) ** 2), 2) if self.height > 0 else 0
+        except ZeroDivisionError:
+            return 0
 
     
     def get_bmi_category(self):
