@@ -6,6 +6,8 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
+import platform
+
 
 # 사용자 데이터를 저장할 파일 경로
 USER_FILE = "users.pkl"
@@ -29,6 +31,35 @@ def hash_password(password):
     hashed = bcrypt.hashpw(password.encode('utf-8'), salt)  # 비밀번호 해싱
     return hashed
 
+
+from kivy.uix.button import Button
+from kivy.app import App
+
+def get_korean_font():
+    system = platform.system()
+    if system == "Windows":
+        return "C:/Windows/Fonts/malgun.ttf"  # Windows에서 기본 한글 폰트 (맑은 고딕)
+    elif system == "Darwin":  # macOS
+        return "/System/Library/Fonts/AppleSDGothicNeo.ttc"  # macOS 기본 한글 폰트
+    return "NotoSansCJK-Regular.otf"  # 리눅스나 기타에서 사용할 폰트
+
+KOREAN_FONT = get_korean_font()
+
+class MyApp(App):
+    def build(self):
+        # 영어와 한글을 모두 지원하는 버튼 생성
+        login_button = Button(
+            text="로그인",  # 한글 텍스트
+            size_hint=(1, 0.2),
+            background_color=(0, 0, 0, 1),
+            font_name=KOREAN_FONT  # 시스템에 맞는 한글 폰트 적용
+        )
+        return login_button
+
+if __name__ == "__main__":
+    MyApp().run()
+
+
 # 회원가입 화면 클래스
 class SignUpScreen(Screen):
     def __init__(self, **kwargs):
@@ -39,7 +70,7 @@ class SignUpScreen(Screen):
         self.layout.pos_hint = {'center_x': 0.5, 'center_y': 0.5}
 
         # 화면에 제목 추가
-        title_label = Label(text="회원가입", font_size='24sp', font_name="Arial")
+        title_label = Label(text="회원가입", font_size='24sp', font_name=KOREAN_FONT)
         self.layout.add_widget(title_label)
 
         # 이메일 입력 필드 추가
@@ -55,12 +86,12 @@ class SignUpScreen(Screen):
         self.layout.add_widget(self.confirm_password_input)
 
         # 회원가입 버튼 추가
-        sign_up_button = Button(text="회원가입", size_hint=(1, 0.2), background_color=(0, 0, 1, 1), font_name="Arial")
+        sign_up_button = Button(text="회원가입", size_hint=(1, 0.2), background_color=(0, 0, 1, 1), font_name=KOREAN_FONT)
         sign_up_button.bind(on_press=self.on_sign_up)
         self.layout.add_widget(sign_up_button)
 
         # 뒤로가기 버튼 추가
-        back_button = Button(text="뒤로가기", size_hint=(1, 0.2), background_color=(1, 0, 0, 1), font_name="Arial")
+        back_button = Button(text="뒤로가기", size_hint=(1, 0.2), background_color=(1, 0, 0, 1), font_name=KOREAN_FONT)
         back_button.bind(on_press=self.go_back)
         self.layout.add_widget(back_button)
 
@@ -76,7 +107,7 @@ class SignUpScreen(Screen):
 
         # 필드가 비어 있는지 체크
         if not email or not password or not confirm_password:
-            self.show_popup("Error", "모든 필드를 입력해주세요.",)
+            self.show_popup("Error", "모든 필드를 입력해주세요.")
             return
         
         # 비밀번호 일치 체크
@@ -101,8 +132,8 @@ class SignUpScreen(Screen):
 
     def show_popup(self, title, message):
         popup_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
-        popup_label = Label(text=message, font_size='18sp', font_name="Arial")
-        close_button = Button(text="확인", size_hint=(1, 0.2), font_name="Arial")
+        popup_label = Label(text=message, font_size='18sp', font_name=KOREAN_FONT)
+        close_button = Button(text="확인", size_hint=(1, 0.2), font_name=KOREAN_FONT)
         popup_layout.add_widget(popup_label)
         popup_layout.add_widget(close_button)
 
