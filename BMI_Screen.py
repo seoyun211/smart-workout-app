@@ -55,11 +55,11 @@ class BMIScreen(Screen):
         self.layout.add_widget(self.back_button)
         
         # BMI 결과 레이블
-        bmi_label = Label(text=f'당신의 BMI: {self.calculate_bmi():.2f}', font_size='24sp', font_name="KoreanFont")
-        result_label = Label(text=f'분류: {self.get_bmi_category()}', font_size='28sp', bold=True, font_name="KoreanFont")
+        bmi_label = Label(text=f'당신의 BMI: {self.calculate_bmi():.2f}', font_size='24sp', font_name=KOREAN_FONT)
+        result_label = Label(text=f'분류: {self.get_bmi_category()}', font_size='28sp', bold=True, font_name=KOREAN_FONT)
         
         # 뒤로 가기 버튼
-        back_button = Button(text='뒤로 가기', on_press=self.go_back, font_name="KoreanFont")
+        back_button = Button(text='뒤로 가기', on_press=self.go_back, font_name=KOREAN_FONT)
         
         self.layout.add_widget(bmi_label)
         self.layout.add_widget(result_label)
