@@ -47,8 +47,10 @@ class BMIScreen(Screen):
             return '저체중'
         elif 18.5 <= bmi < 25:
             return '정상체중'
-        else:
+        elif 25<= bmi < 30:
             return '과체중'
+        else:
+            return '비만'
     
     def go_back(self, instance):
         self.manager.current = 'height_weight_screen'
