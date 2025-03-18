@@ -5,17 +5,34 @@ from kivy.uix.image import Image
 from kivy.uix.boxlayout import BoxLayout
 from kivy.graphics import Color, Rectangle
 
-# 운영체제에 따라 폰트 경로 설정
+from kivy.uix.button import Button
+from kivy.app import App
+
+
 def get_korean_font():
     system = platform.system()
     if system == "Windows":
-        return "malgun.ttf"  # 윈도우 기본 한글 폰트 (맑은 고딕)
+        return "C:/Windows/Fonts/malgun.ttf"  # Windows에서 기본 한글 폰트 (맑은 고딕)
     elif system == "Darwin":  # macOS
-        return "/System/Library/Fonts/Supplemental/AppleSDGothicNeo.ttc"  # macOS 기본 한글 폰트
-    else:
-        return "NotoSansCJK-Regular.otf"  # 프로젝트 내부 폰트 (리눅스 대비)
+        return "/System/Library/Fonts/AppleSDGothicNeo.ttc"  # macOS 기본 한글 폰트
+    return "NotoSansCJK-Regular.otf"  # 리눅스나 기타에서 사용할 폰트
 
 KOREAN_FONT = get_korean_font()
+
+class MyApp(App):
+    def build(self):
+        # 영어와 한글을 모두 지원하는 버튼 생성
+        login_button = Button(
+            text="로그인",  # 한글 텍스트
+            size_hint=(1, 0.2),
+            background_color=(0, 0, 0, 1),
+            font_name=KOREAN_FONT  # 시스템에 맞는 한글 폰트 적용
+        )
+        return login_button
+
+if __name__ == "__main__":
+    MyApp().run()
+
 
 class GenderSelectionScreen(Screen):
     def __init__(self, **kwargs):
