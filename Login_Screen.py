@@ -56,26 +56,26 @@ class LoginScreen(Screen):
 
         email_layout = BoxLayout(orientation='horizontal', size_hint=(1, 0.1), spacing=10)
         email_icon = Image(source="images/email.png", size_hint=(0.15, 1))
-        self.email_input = TextInput(hint_text="이메일 ID", multiline=False, size_hint=(0.85, 1), font_name='KoreanFont')
+        self.email_input = TextInput(hint_text="ID", multiline=False, size_hint=(0.85, 1), font_name='KoreanFont')
         email_layout.add_widget(email_icon)
         email_layout.add_widget(self.email_input)
         self.layout.add_widget(email_layout)
 
         password_layout = BoxLayout(orientation='horizontal', size_hint=(1, 0.1), spacing=10)
         password_icon = Image(source="images/password.png", size_hint=(0.15, 1))
-        self.password_input = TextInput(hint_text="비밀번호", multiline=False, password=True, size_hint=(0.85, 1), font_name='KoreanFont')
+        self.password_input = TextInput(hint_text="Password", multiline=False, password=True, size_hint=(0.85, 1), font_name='KoreanFont')
         password_layout.add_widget(password_icon)
         password_layout.add_widget(self.password_input)
         self.layout.add_widget(password_layout)
 
-        forgot_button = Button(text="비밀번호 찾기", size_hint=(1, 0.1), background_color=(0, 0, 0, 0), color=(0, 0, 1, 1), font_name='KoreanFont')
+        forgot_button = Button(text="Password를 잊으셨습니까?", size_hint=(1, 0.1), background_color=(0, 0, 0, 0), color=(0, 0, 1, 1), font_name='KoreanFont')
         self.layout.add_widget(forgot_button)
 
-        self.login_button = Button(text="로그인", size_hint=(1, 0.2), background_color=(0, 0, 0, 1), font_name='KoreanFont')
+        self.login_button = Button(text="Login", size_hint=(1, 0.2), background_color=(0, 0, 0, 1), font_name='KoreanFont')
         self.login_button.bind(on_press=self.on_login)
         self.layout.add_widget(self.login_button)
 
-        sign_up_button = Button(text="회원가입", size_hint=(1, 0.1), background_color=(0, 0, 0, 1), color=(0, 0, 1, 1), font_name='KoreanFont')
+        sign_up_button = Button(text="sign Up", size_hint=(1, 0.1), background_color=(0, 0, 0, 1), color=(0, 0, 1, 1), font_name='KoreanFont')
         sign_up_button.bind(on_press=self.on_sign_up)
         self.layout.add_widget(sign_up_button)
 
@@ -95,14 +95,57 @@ class LoginScreen(Screen):
 
     def show_error_popup(self):
         popup_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
-        popup_label = Label(text="아이디와 비밀번호가 일치하지 않습니다.", font_size='20sp', font_name='KoreanFont')
-        close_button = Button(text="확인", size_hint=(1, 0.2), font_name='KoreanFont')
+
+        # 배경색을 로그인 화면과 비슷한 연한 회색으로 설정
+        with popup_layout.canvas.before:
+            Color(0.9, 0.9, 0.9, 1)  # 연한 회색 배경
+            self.rect = Rectangle(size=popup_layout.size, pos=popup_layout.pos)
+
+        popup_layout.bind(size=self._update_rect, pos=self._update_rect)  # 크기 업데이트
+
+        # 팝업 메시지 (로그인 창과 동일한 스타일)
+        popup_label = Label(
+            text="ID와 Password가 일치하지 않습니다.",
+            font_size='20sp',
+            font_name='KoreanFont',
+            color=(0, 0, 0, 1)  # 검은색 텍스트
+        )
+
+        # 확인 버튼 (로그인 창과 동일한 스타일)
+        close_button = Button(
+            text="확인",
+            size_hint=(1, 0.2),
+            font_name='KoreanFont',
+            background_color=(0, 0, 0, 1),  # 검은색 배경
+            color=(1, 1, 1, 1)  # 흰색 글자
+        )
+
         popup_layout.add_widget(popup_label)
         popup_layout.add_widget(close_button)
 
-        popup = Popup(title="오류", content=popup_layout, size_hint=(0.6, 0.4))
+        # 팝업 창을 로그인 화면처럼 회색 배경으로 변경
+        popup = Popup(
+            title="Error",
+            content=popup_layout,
+            size_hint=(0.6, 0.4),
+            separator_color=(0.8, 0.8, 0.8, 1)  # 연한 회색 구분선
+        )
+
+        # 🔹 팝업 창 전체 배경을 회색으로 설정하는 부분 추가
+        with popup.canvas.before:
+            Color(0.9, 0.9, 0.9, 1)  # 연한 회색 배경
+            popup.rect = Rectangle(size=popup.size, pos=popup.pos)
+
+        popup.bind(size=self._update_popup_rect, pos=self._update_popup_rect)
+
         close_button.bind(on_press=popup.dismiss)
         popup.open()
+
+    # 🔹 팝업 크기 변경 시 배경 업데이트
+    def _update_popup_rect(self, instance, value):
+        instance.rect.pos = instance.pos
+        instance.rect.size = instance.size
+
 
     def on_sign_up(self, instance):
         self.manager.current = 'sign_up_screen'
@@ -172,7 +215,7 @@ class SignUpScreen(Screen):
         save_users(self.users)  # 사용자 데이터 파일에 저장
 
         # 성공 팝업 띄우기
-        self.show_popup("Success", "회원가입이 완료되었습니다!")
+        self.show_popup("Success", "회원가입 완료")
         
         # 팝업 창이 닫히는 것과 동시에 로그인 화면으로 전환
         self.manager.current = 'login_screen'
