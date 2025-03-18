@@ -14,10 +14,12 @@ class HealthTrackerApp(App):
         self.login_screen = LoginScreen(name='login_screen')
         self.gender_selection_screen = GenderSelectionScreen(name='gender_selection')
         self.height_weight_screen = HeightWeightScreen(name='height_weight_screen')
+        self.sign_up_screen = SignUpScreen(name='sign_up_screen')
 
         self.screen_manager.add_widget(self.login_screen)
         self.screen_manager.add_widget(self.gender_selection_screen)
         self.screen_manager.add_widget(self.height_weight_screen)
+        self.screen_manager.add_widget(self.sign_up_screen)
 
         return self.screen_manager
 
