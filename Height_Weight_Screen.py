@@ -69,6 +69,9 @@ class HeightWeightScreen(Screen):
             exercise_screen.set_bmi_category(category)
             self.manager.current = "exercise_recommendation"
 
+            # BMI 결과 팝업을 보여줍니다.
+            self.show_bmi_popup(bmi, category)
+        
         except ValueError:
             self.show_error_popup()
 
@@ -82,6 +85,35 @@ class HeightWeightScreen(Screen):
         else:
             return "비만"
 
+    def show_bmi_popup(self, bmi, category):
+        # BMI 결과를 보여줄 팝업 레이아웃
+        popup_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
+        bmi_label = Label(
+            text=f"BMI: {bmi:.2f}",
+            font_size='20sp',
+            font_name=KOREAN_FONT
+        )
+        # 카테고리별 색상 지정
+        category_label = Label(
+            text=f"{category}",
+            font_size='20sp',
+            font_name=KOREAN_FONT,
+            color=(
+                (0, 0, 1, 1) if category == "저체중" else  # 파란색
+                (0, 1, 0, 1) if category == "정상체중" else  # 초록색
+                (1, 1, 0, 1) if category == "과체중" else  # 노란색
+                (1, 0, 0, 1)  # 빨간색
+            )
+        )
+        close_button = Button(text="확인", size_hint=(1, 0.2), font_name=KOREAN_FONT)
+        popup_layout.add_widget(bmi_label)
+        popup_layout.add_widget(category_label)
+        popup_layout.add_widget(close_button)
+
+        popup = Popup(title="BMI RESULT", content=popup_layout, size_hint=(0.6, 0.4))
+        close_button.bind(on_press=popup.dismiss)
+        popup.open()
+
     def show_error_popup(self):
         popup_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
         error_label = Label(text="입력 오류! 숫자만 입력하세요.", font_size='20sp', font_name=KOREAN_FONT)
@@ -92,5 +124,6 @@ class HeightWeightScreen(Screen):
         popup = Popup(title="Error", content=popup_layout, size_hint=(0.6, 0.4))
         close_button.bind(on_press=popup.dismiss)
         popup.open()
+
 
 
