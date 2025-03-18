@@ -24,7 +24,8 @@ class BMIScreen(Screen):
         self.add_widget(self.layout)
 
     def calculate_bmi(self):
-        return self.weight / (self.height / 100) ** 2
+        if self.hight > 0:
+            return self.weight / (self.height / 100) ** 2
     
     def get_bmi_category(self):
         bmi = self.calculate_bmi()
@@ -36,7 +37,11 @@ class BMIScreen(Screen):
             return '과체중'
         else:
             return '비만'
-    
+    def go_to_exercise_recommendation(self, instance):
+        """ 운동 추천 화면으로 이동하는 함수 ✅ """
+        if self.manager:
+            self.manager.current = "exercise_screen"
+
     def go_back(self, instance):
         self.manager.current = 'height_weight_screen'
 
