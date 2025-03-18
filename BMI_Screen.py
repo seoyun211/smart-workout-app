@@ -111,5 +111,7 @@ class BMIScreen(Screen):
             self.manager.current = "exercise_screen"
 
     def go_back(self, instance):
-        """ 이전 화면(키/몸무게 입력 화면)으로 이동 """
-        self.manager.current = 'height_weight_screen'
+        if self.manager and self.manager.has_screen("height_weight_screen"):
+            self.manager.current = "height_weight_screen"
+        else:
+            print("오류: 'height_weight_screen'이 존재하지 않습니다.")
