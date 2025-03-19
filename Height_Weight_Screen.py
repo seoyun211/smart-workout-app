@@ -33,21 +33,21 @@ class HeightWeightScreen(Screen):
         title_label = Label(text="키 & 몸무게를 입력하세요", font_size='22sp', font_name=KOREAN_FONT, color=(0, 0, 0, 1), size_hint=(1, 0.15))
         self.layout.add_widget(title_label)
 
-        stature_layout = BoxLayout(orientation='horizontal', size_hint=(1, 0.14), spacing=15)
+        stature_layout = BoxLayout(orientation='horizontal', size_hint=(1, 0.1), spacing=15)
         stature_icon = Image(source="images/키.png", size_hint=(0.25, 1))
         self.stature_input = TextInput(hint_text="키(cm)", multiline=False, size_hint=(0.85, 1), font_name=KOREAN_FONT)
         stature_layout.add_widget(stature_icon)
         stature_layout.add_widget(self.stature_input)
         self.layout.add_widget(stature_layout)
 
-        weight_layout = BoxLayout(orientation='horizontal', size_hint=(1, 0.14), spacing=15)
+        weight_layout = BoxLayout(orientation='horizontal', size_hint=(1, 0.1), spacing=15)
         weight_icon = Image(source="images/몸무게.png", size_hint=(0.25, 1))
         self.weight_input = TextInput(hint_text="몸무게(kg)", multiline=False, size_hint=(0.85, 1), font_name=KOREAN_FONT)
         weight_layout.add_widget(weight_icon)
         weight_layout.add_widget(self.weight_input)
         self.layout.add_widget(weight_layout)
 
-        self.calculate_button = Button(text="BMI 계산", size_hint=(1, 0.15), font_name=KOREAN_FONT, background_color=(0.5, 0.5, 0.5, 1))
+        self.calculate_button = Button(text="BMI 계산", size_hint=(1, 0.1), font_name=KOREAN_FONT, background_color=(0.5, 0.5, 0.5, 1))
         self.calculate_button.bind(on_press=self.calculate_bmi)
         self.layout.add_widget(self.calculate_button)
 

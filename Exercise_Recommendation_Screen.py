@@ -78,8 +78,8 @@ class ExerciseRecommendationScreen(Screen):
             text="다음",
             font_name=KOREAN_FONT,
             size_hint=(0.4, 1),
-            background_color=(0.8, 0.8, 0.8, 1),  # ✅ 연한 회색 배경
-            color=(0, 0, 0, 1)  # ✅ 글씨 검은색
+            background_color=(0.6, 0.6, 0.6, 1),  # ✅ 연한 회색 배경
+            color=(1, 1, 1, 1)  # ✅ 글씨 검은색
         )
         self.next_button.bind(on_press=self.show_next_exercise)
         button_layout.add_widget(self.next_button)
@@ -89,8 +89,8 @@ class ExerciseRecommendationScreen(Screen):
             text="뒤로 가기",
             font_name=KOREAN_FONT,
             size_hint=(0.4, 1),
-            background_color=(0.8, 0.8, 0.8, 1),  # ✅ 연한 회색 배경
-            color=(0, 0, 0, 1)  # ✅ 글씨 검은색
+            background_color=(0.6, 0.6, 0.6, 1),  # ✅ 연한 회색 배경
+            color=(1, 1, 1, 1)  # ✅ 글씨 검은색
         )
         self.back_button.bind(on_press=self.go_back)
         button_layout.add_widget(self.back_button)
@@ -122,8 +122,8 @@ class ExerciseRecommendationScreen(Screen):
             },
 
             "과체중": {
-                "운동": ["빠르게 걷기(트레드밀)", "줄넘기", "버피", "레그프레스", "케틀벨 스윙"],
-                "미디어": ["images/빠르게 걷기(트레드밀)k.mp4", "images/줄넘기.mp4", "images/버피.mp4", "images/레그프레스.mp4", "images/케틀벨 스윙.mp4"],
+                "운동": ["빠르게 걷기(트레드밀)", "줄넘기", "버피", "레그프레스", "케틀벨스윙"],
+                "미디어": ["images/트레드밀.mp4", "images/줄넘기.mp4", "images/버피.mp4", "images/레그프레스.mp4", "images/케틀벨스윙.mp4"],
                 "설명" : ["1. 속도를 알맞게 조절하고 운동합니다.\n" "2. 경사를 알맞게 조절하고 운동합니다.\n",
                         "1. 몸에 힘을 빼고 곧게 섭니다.\n" "2. 줄넘기를 손목의 힘으로 가볍게 돌려줍니다.\n" "3. 무릎의 탄력을 이용하여 점프해 줄을 넘습니다.",
                         "1. 곧게 섰다가 스쿼트 자세를 후 팔굽혀펴기를 수행합니다. \n" "2.다리를 가슴 쪽으로 당겨 돌아옵니다.\n" "3. 일어나면서 양손을 뻗으면서 점프합니다.",
@@ -131,13 +131,13 @@ class ExerciseRecommendationScreen(Screen):
                         "1. 양발을 넓게 벌리고, 양손으로 케틀벨을 잡습니다.\n" "2. 허리가 굽지 않도록, 케틀벨을 다리 사이로 보냅니다.\n" "3. 둔근을 수축하는 힘으로 케틀벨을 밀어 올립니다."]
             },
             "비만": {
-                "운동": ["걷기", "일립티컬 머신", "스텝업", "계단오르기", "싸이클"],
-                "미디어": ["images/걷기.mp4", "images/일립티컬 머신.mp4", "images/스텝업.mp4", "images/계단오르기.mp4", "images/싸이클.mp4"],
+                "운동": ["걷기", "일립티컬머신", "스텝업", "계단오르기", "싸이클"],
+                "미디어": ["images/걷기.mp4", "images/일립티컬머신.mp4", "images/스텝업.mp4", "images/계단오르기.mp4", "images/싸이클.mp4"],
                 "설명" : ["1. 바른 자세로 걷습니다.\n",
                         "1. 핸들을 잡습니다.\n" "2. 두 발과 손을 번갈아 가면서 흔듭니다.\n" "3. 강도를 조절해 반복합니다.",
-                        "1. 구조물 앞에 선 후, \n" "2. \n" "3. ",
-                        "1. \n" "2. \n" "3. ",
-                        "1. \n" "2. \n" "3. "]
+                        "1. 구조물 앞에 선 후, 한 발씩 구조물로 올라갑니다. \n" "2. 구조물 위에서 몸을 피고 섭니다.\n" "3. 한 발씩 바닥으로 내려옵니다.",
+                        "1. 넘어지지 않게 유의하면서 계단을 한칸씩 올라갑니다.\n" "2. 발목에 무리가지않게 반복합니다.\n",
+                        "1.  안장을 체형에 맞게 조절합니다.\n" "2. 두 발을 페달에 넣고 굴립니다.\n" "3. 강도를 조절하며 반복합니다."]
             }
         }
         

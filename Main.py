@@ -21,7 +21,7 @@ class HealthTrackerApp(App):
         self.screen_manager.add_widget(self.gender_selection_screen)
         self.screen_manager.add_widget(self.height_weight_screen)
         self.screen_manager.add_widget(self.sign_up_screen)
-        self.screen_manager.add_widget(self.exercise_recommendation_screen)  # 🚀 추가
+        self.screen_manager.add_widget(self.exercise_recommendation_screen) 
 
         return self.screen_manager
 
