@@ -5,6 +5,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.video import Video
+from kivy.graphics import Color, Rectangle  # ✅ 배경색을 위해 추가
 
 # ✅ 한글 폰트 설정
 def get_korean_font():
@@ -21,6 +22,13 @@ class ExerciseRecommendationScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+        # ✅ 배경을 흰색으로 설정 (Canvas 사용)
+        with self.canvas.before:
+            Color(1, 1, 1, 1)  # RGB (1,1,1) = 흰색
+            self.rect = Rectangle(size=self.size, pos=self.pos)
+        
+        self.bind(size=self.update_background, pos=self.update_background)  # ✅ 크기 변경 시 배경 유지
+
         # 메인 레이아웃 (세로 정렬)
         self.layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
 
@@ -30,23 +38,25 @@ class ExerciseRecommendationScreen(Screen):
             font_size='26sp',
             bold=True,
             font_name=KOREAN_FONT,
+            color=(0, 0, 0, 1),  # ✅ 글씨 검은색
             size_hint=(1, 0.1)  # 공간 확보 (더 위로)
         )
         self.layout.add_widget(self.title_label)
 
-        # 운동 이름 표시 (더 위로 조정)
+        # 운동 이름 표시
         self.exercise_label = Label(
             text="운동: ",
-            font_size='22sp',  # 조금 더 크게
+            font_size='22sp',
             font_name=KOREAN_FONT,
-            size_hint=(1, 0.08)  # 크기 줄여서 위로 올림
+            color=(0, 0, 0, 1),  # ✅ 글씨 검은색
+            size_hint=(1, 0.08)  
         )
         self.layout.add_widget(self.exercise_label)
 
         # ✅ 비디오 플레이어 (중앙 크고 정렬)
         self.exercise_video = Video(
             source="",
-            size_hint=(1, 0.55)  # 비디오 크기 조정
+            size_hint=(1, 0.55)  
         )
         self.layout.add_widget(self.exercise_video)
 
@@ -55,27 +65,32 @@ class ExerciseRecommendationScreen(Screen):
             text="운동 설명이 여기에 표시됩니다.",
             font_size='18sp',
             font_name=KOREAN_FONT,
-            size_hint=(1, 0.1)  # 설명 공간 추가
+            color=(0, 0, 0, 1),  # ✅ 글씨 검은색
+            size_hint=(1, 0.1)  
         )
         self.layout.add_widget(self.description_label)
 
         # 버튼 레이아웃 (가로 정렬, 버튼 작게)
         button_layout = BoxLayout(orientation='horizontal', spacing=20, size_hint=(1, 0.08))
 
-        # "다음" 버튼 (작게 조정)
+        # "다음" 버튼
         self.next_button = Button(
             text="다음",
             font_name=KOREAN_FONT,
-            size_hint=(0.4, 1)  # 버튼 크기 축소
+            size_hint=(0.4, 1),
+            background_color=(0.8, 0.8, 0.8, 1),  # ✅ 연한 회색 배경
+            color=(0, 0, 0, 1)  # ✅ 글씨 검은색
         )
         self.next_button.bind(on_press=self.show_next_exercise)
         button_layout.add_widget(self.next_button)
 
-        # "뒤로 가기" 버튼 (작게 조정)
+        # "뒤로 가기" 버튼
         self.back_button = Button(
             text="뒤로 가기",
             font_name=KOREAN_FONT,
-            size_hint=(0.4, 1)  # 버튼 크기 축소
+            size_hint=(0.4, 1),
+            background_color=(0.8, 0.8, 0.8, 1),  # ✅ 연한 회색 배경
+            color=(0, 0, 0, 1)  # ✅ 글씨 검은색
         )
         self.back_button.bind(on_press=self.go_back)
         button_layout.add_widget(self.back_button)
@@ -89,10 +104,7 @@ class ExerciseRecommendationScreen(Screen):
                 "운동" : ["스쿼트", "벤치프레스", "데드리프트", "풀업", "런지"],
                 "미디어" : ["images/스쿼트.mp4", "images/벤치프레스.mp4", "images/deadlift.mp4", "images/pullup.mp4", "images/lunge.mp4"],
                 "설명" : ["1. 다리를 어깨너비만큼 벌리고 곧게 섭니다.\n" "2. 가슴을 편 상태로 엉덩이를 뒤로 빼며 앉습니다. \n" "3. 발바닥으로 지면을 밀고 일어나면서 시작 자세로 돌아옵니다."]
-                         ["데드리프트 하는법"]
-                         ["풀업"]
-                         ["런지"]
-                         ["벤치프레스스"]
+                        
             },
             "정상체중": {
                 "운동": ["달리기", "사이클", "플랭크", "로잉 머신", "점프 스쿼트"],
@@ -107,21 +119,21 @@ class ExerciseRecommendationScreen(Screen):
                 "미디어": ["images/walk.mp4", "images/elliptical.mp4", "images/step_up.mp4", "images/stair_climb.mp4", "images/bike.mp4"]
             }
         }
+        
 
-        self.current_category = None  # 현재 BMI 카테고리
-        self.current_index = 0  # 현재 표시 중인 운동 인덱스
+        self.current_category = None
+        self.current_index = 0
 
-    def play_video(self, *args):
-        """비디오 로드 후 자동 재생"""
-        if self.exercise_video and self.exercise_video.loaded:
-            self.exercise_video.seek(0)
-            self.exercise_video.state = 'play'
+    def update_background(self, *args):
+        """화면 크기 변경 시 배경 유지"""
+        self.rect.size = self.size
+        self.rect.pos = self.pos
 
     def set_bmi_category(self, category):
         """BMI 카테고리에 따라 운동 추천 리스트 설정"""
         if category in self.exercise_data:
             self.current_category = category
-            self.current_index = 0  # 처음부터 시작
+            self.current_index = 0
             self.update_exercise_display()
         else:
             self.exercise_label.text = "운동 추천 데이터를 찾을 수 없습니다."
@@ -131,33 +143,32 @@ class ExerciseRecommendationScreen(Screen):
         if self.current_category:
             exercises = self.exercise_data[self.current_category]["운동"]
             videos = self.exercise_data[self.current_category]["미디어"]
-            descriptions = self.exercise_data[self.current_category].get("설명", [])  # 설명이 없을 수도 있음
-        
+            descriptions = self.exercise_data[self.current_category]["설명"]
+
             if self.current_index < len(exercises):
                 self.exercise_label.text = f"운동: {exercises[self.current_index]}"
+                self.description_label.text = descriptions[self.current_index]
 
-                # ✅ 설명이 있으면 표시, 없으면 기본값 설정
-                if self.current_index < len(descriptions):
-                    self.description_label.text = descriptions[self.current_index]
-                else:
-                    self.description_label.text = "운동 설명이 없습니다."
+                video_path = os.path.abspath(videos[self.current_index])  # ✅ 절대 경로 변환
 
-                # ✅ 기존 비디오 초기화 후 새로운 비디오 설정
-                video_path = videos[self.current_index]
-                if video_path and os.path.exists(video_path):
-                    self.exercise_video.source = ""
+                print("비디오 경로:", video_path, "존재 여부:", os.path.exists(video_path))  # ✅ 경로 확인
+
+                if os.path.exists(video_path):
+                    self.exercise_video.source = ""  # ✅ 기존 소스 초기화 (필수)
                     self.exercise_video.source = video_path
-                    self.exercise_video.state = 'play'
+
+                    if hasattr(self, "play_video"):
+                        self.exercise_video.unbind(on_load=self.play_video)  # ✅ 기존 이벤트 해제
+                        self.exercise_video.bind(on_load=self.play_video)  # ✅ 새 이벤트 등록
+                    self.exercise_video.state = 'play'  # ✅ 자동 재생
                 else:
-                    print(f"⚠️ 오류: {video_path} 파일이 존재하지 않음.")
+                    print(f"⚠️ 파일 없음: {video_path}")
                     self.exercise_label.text = "⚠️ 비디오 파일을 찾을 수 없습니다."
                     self.exercise_video.source = ""
-
             else:
                 self.exercise_label.text = "운동이 끝났습니다!"
                 self.exercise_video.source = ""
                 self.description_label.text = ""
-
 
     def show_next_exercise(self, instance):
         """다음 운동을 보여주는 함수"""
@@ -170,5 +181,5 @@ class ExerciseRecommendationScreen(Screen):
             self.description_label.text = ""
 
     def go_back(self, instance):
-        """이전 화면(키 & 몸무게 입력)으로 돌아가기"""
+        """이전 화면으로 돌아가기"""
         self.manager.current = "height_weight_screen"
