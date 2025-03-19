@@ -89,7 +89,7 @@ class LoginScreen(Screen):
         email = self.email_input.text
         password = self.password_input.text
         if email in users and users[email] == password:
-            self.manager.current = 'gender_selection'
+            self.manager.current = 'selectwhatyoudo'
         else:
             self.show_error_popup()
 

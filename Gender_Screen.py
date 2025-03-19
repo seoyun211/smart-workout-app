@@ -19,21 +19,6 @@ def get_korean_font():
 
 KOREAN_FONT = get_korean_font()
 
-class MyApp(App):
-    def build(self):
-        # 영어와 한글을 모두 지원하는 버튼 생성
-        login_button = Button(
-            text="로그인",  # 한글 텍스트
-            size_hint=(1, 0.2),
-            background_color=(0, 0, 0, 1),
-            font_name=KOREAN_FONT  # 시스템에 맞는 한글 폰트 적용
-        )
-        return login_button
-
-if __name__ == "__main__":
-    MyApp().run()
-
-
 class GenderSelectionScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
