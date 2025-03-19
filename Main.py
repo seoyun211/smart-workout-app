@@ -26,4 +26,4 @@ class HealthTrackerApp(App):
         return self.screen_manager
 
 if __name__ == '__main__':
-    HealthTrackerApp().run()    
+    HealthTrackerApp().run()
