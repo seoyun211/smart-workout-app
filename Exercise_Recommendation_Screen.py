@@ -102,21 +102,21 @@ class ExerciseRecommendationScreen(Screen):
         self.exercise_data = {
             "저체중": {
                 "운동" : ["스쿼트", "벤치프레스", "데드리프트", "풀업", "런지"],
-                "미디어" : ["images/스쿼트.mp4", "images/벤치프레스.mp4", "images/deadlift.mp4", "images/pullup.mp4", "images/lunge.mp4"],
+                "미디어" : ["images/스쿼트.mp4", "images/벤치프레스.mp4", "images/데드리프트.mp4", "images/풀업.mp4", "images/런지.mp4"],
                 "설명" : ["1. 다리를 어깨너비만큼 벌리고 곧게 섭니다.\n" "2. 가슴을 편 상태로 엉덩이를 뒤로 빼며 앉습니다. \n" "3. 발바닥으로 지면을 밀고 일어나면서 시작 자세로 돌아옵니다."]
                         
             },
             "정상체중": {
                 "운동": ["달리기", "사이클", "플랭크", "로잉 머신", "점프 스쿼트"],
-                "미디어": ["images/running.mp4", "images/cycling.mp4", "images/plank.mp4", "images/rowing.mp4", "images/jump_squat.mp4"]
+                "미디어": ["images/달리기.mp4", "images/사이클.mp4", "images/플랭크.mp4", "images/로잉 머신.mp4", "images/점프 스쿼트.mp4"]
             },
             "과체중": {
                 "운동": ["빠르게 걷기(트레드밀)", "줄넘기", "버피", "레그프레스", "케틀벨 스윙"],
-                "미디어": ["images/fast_walk.mp4", "images/jump_rope.mp4", "images/burpee.mp4", "images/leg_press.mp4", "images/kettlebell_swing.mp4"]
+                "미디어": ["images/빠르게 걷기(트레드밀)k.mp4", "images/줄넘기.mp4", "images/버피.mp4", "images/레그프레스.mp4", "images/케틀벨 스윙.mp4"]
             },
             "비만": {
                 "운동": ["걷기", "일립티컬 머신", "스텝업", "계단오르기", "사이클"],
-                "미디어": ["images/walk.mp4", "images/elliptical.mp4", "images/step_up.mp4", "images/stair_climb.mp4", "images/bike.mp4"]
+                "미디어": ["images/걷기.mp4", "images/일립티컬 머신.mp4", "images/스텝업.mp4", "images/계단오르기.mp4", "images/사이클.mp4"]
             }
         }
         
