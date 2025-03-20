@@ -37,6 +37,7 @@ if __name__ == "__main__":
 class GenderSelectionScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.selected_gender = None  # 선택한 성별 저장
 
         # 배경색 설정
         with self.canvas.before:

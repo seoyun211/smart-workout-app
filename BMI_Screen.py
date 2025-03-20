@@ -55,11 +55,11 @@ class BMIScreen(Screen):
         self.layout.add_widget(self.back_button)
         
         # BMI 결과 레이블
-        bmi_label = Label(text=f'당신의 BMI: {self.calculate_bmi():.2f}', font_size='24sp', font_name="KoreanFont")
-        result_label = Label(text=f'분류: {self.get_bmi_category()}', font_size='28sp', bold=True, font_name="KoreanFont")
+        bmi_label = Label(text=f'당신의 BMI: {self.calculate_bmi():.2f}', font_size='24sp', font_name=KOREAN_FONT)
+        result_label = Label(text=f'분류: {self.get_bmi_category()}', font_size='28sp', bold=True, font_name=KOREAN_FONT)
         
         # 뒤로 가기 버튼
-        back_button = Button(text='뒤로 가기', on_press=self.go_back, font_name="KoreanFont")
+        back_button = Button(text='뒤로 가기', on_press=self.go_back, font_name=KOREAN_FONT)
         
         self.layout.add_widget(bmi_label)
         self.layout.add_widget(result_label)
@@ -88,9 +88,10 @@ class BMIScreen(Screen):
             self.result_label.text = ""
 
     def calculate_bmi(self):
-        if self.height > 0:
-            return self.weight / (self.height / 100) ** 2
-        return 0  # 잘못된 값이 들어왔을 경우 0 반환
+        try:
+            return round(self.weight / ((self.height / 100) ** 2), 2) if self.height > 0 else 0
+        except ZeroDivisionError:
+            return 0
 
     
     def get_bmi_category(self):
@@ -110,5 +111,7 @@ class BMIScreen(Screen):
             self.manager.current = "exercise_screen"
 
     def go_back(self, instance):
-        """ 이전 화면(키/몸무게 입력 화면)으로 이동 """
-        self.manager.current = 'height_weight_screen'
+        if self.manager and self.manager.has_screen("height_weight_screen"):
+            self.manager.current = "height_weight_screen"
+        else:
+            print("오류: 'height_weight_screen'이 존재하지 않습니다.")

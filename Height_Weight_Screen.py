@@ -33,21 +33,21 @@ class HeightWeightScreen(Screen):
         title_label = Label(text="키 & 몸무게를 입력하세요", font_size='22sp', font_name=KOREAN_FONT, color=(0, 0, 0, 1), size_hint=(1, 0.15))
         self.layout.add_widget(title_label)
 
-        stature_layout = BoxLayout(orientation='horizontal', size_hint=(1, 0.14), spacing=15)
+        stature_layout = BoxLayout(orientation='horizontal', size_hint=(1, 0.1), spacing=15)
         stature_icon = Image(source="images/키.png", size_hint=(0.25, 1))
         self.stature_input = TextInput(hint_text="키(cm)", multiline=False, size_hint=(0.85, 1), font_name=KOREAN_FONT)
         stature_layout.add_widget(stature_icon)
         stature_layout.add_widget(self.stature_input)
         self.layout.add_widget(stature_layout)
 
-        weight_layout = BoxLayout(orientation='horizontal', size_hint=(1, 0.14), spacing=15)
+        weight_layout = BoxLayout(orientation='horizontal', size_hint=(1, 0.1), spacing=15)
         weight_icon = Image(source="images/몸무게.png", size_hint=(0.25, 1))
         self.weight_input = TextInput(hint_text="몸무게(kg)", multiline=False, size_hint=(0.85, 1), font_name=KOREAN_FONT)
         weight_layout.add_widget(weight_icon)
         weight_layout.add_widget(self.weight_input)
         self.layout.add_widget(weight_layout)
 
-        self.calculate_button = Button(text="BMI 계산", size_hint=(1, 0.15), font_name=KOREAN_FONT, background_color=(0.5, 0.5, 0.5, 1))
+        self.calculate_button = Button(text="BMI 계산", size_hint=(1, 0.1), font_name=KOREAN_FONT, background_color=(0.5, 0.5, 0.5, 1))
         self.calculate_button.bind(on_press=self.calculate_bmi)
         self.layout.add_widget(self.calculate_button)
 
@@ -69,6 +69,9 @@ class HeightWeightScreen(Screen):
             exercise_screen.set_bmi_category(category)
             self.manager.current = "exercise_recommendation"
 
+            # BMI 결과 팝업을 보여줍니다.
+            self.show_bmi_popup(bmi, category)
+        
         except ValueError:
             self.show_error_popup()
 
@@ -82,6 +85,35 @@ class HeightWeightScreen(Screen):
         else:
             return "비만"
 
+    def show_bmi_popup(self, bmi, category):
+        # BMI 결과를 보여줄 팝업 레이아웃
+        popup_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
+        bmi_label = Label(
+            text=f"BMI: {bmi:.2f}",
+            font_size='20sp',
+            font_name=KOREAN_FONT
+        )
+        # 카테고리별 색상 지정
+        category_label = Label(
+            text=f"{category}",
+            font_size='20sp',
+            font_name=KOREAN_FONT,
+            color=(
+                (0, 0, 1, 1) if category == "저체중" else  # 파란색
+                (0, 1, 0, 1) if category == "정상체중" else  # 초록색
+                (1, 1, 0, 1) if category == "과체중" else  # 노란색
+                (1, 0, 0, 1)  # 빨간색
+            )
+        )
+        close_button = Button(text="확인", size_hint=(1, 0.2), font_name=KOREAN_FONT)
+        popup_layout.add_widget(bmi_label)
+        popup_layout.add_widget(category_label)
+        popup_layout.add_widget(close_button)
+
+        popup = Popup(title="BMI RESULT", content=popup_layout, size_hint=(0.6, 0.4))
+        close_button.bind(on_press=popup.dismiss)
+        popup.open()
+
     def show_error_popup(self):
         popup_layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
         error_label = Label(text="입력 오류! 숫자만 입력하세요.", font_size='20sp', font_name=KOREAN_FONT)
@@ -92,5 +124,6 @@ class HeightWeightScreen(Screen):
         popup = Popup(title="Error", content=popup_layout, size_hint=(0.6, 0.4))
         close_button.bind(on_press=popup.dismiss)
         popup.open()
+
 
 
