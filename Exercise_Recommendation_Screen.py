@@ -79,7 +79,7 @@ class ExerciseRecommendationScreen(Screen):
             font_name=KOREAN_FONT,
             size_hint=(0.4, 1),
             background_color=(0.6, 0.6, 0.6, 1),  # ✅ 연한 회색 배경
-            color=(1, 1, 1, 1)  # ✅ 글씨 검은색
+            color=(1, 1, 1, 1) 
         )
         self.next_button.bind(on_press=self.show_next_exercise)
         button_layout.add_widget(self.next_button)
@@ -90,7 +90,7 @@ class ExerciseRecommendationScreen(Screen):
             font_name=KOREAN_FONT,
             size_hint=(0.4, 1),
             background_color=(0.6, 0.6, 0.6, 1),  # ✅ 연한 회색 배경
-            color=(1, 1, 1, 1)  # ✅ 글씨 검은색
+            color=(1, 1, 1, 1) 
         )
         self.back_button.bind(on_press=self.go_back)
         button_layout.add_widget(self.back_button)
