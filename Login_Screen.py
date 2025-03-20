@@ -11,6 +11,7 @@ from kivy.uix.popup import Popup
 from kivy.graphics import Color, Rectangle
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.core.text import LabelBase
+from Main_Menu_Screen import MainMenuScreen
 
 # 사용자 데이터를 저장할 JSON 파일
 USER_DATA_FILE = "users.json"
@@ -89,7 +90,7 @@ class LoginScreen(Screen):
         email = self.email_input.text
         password = self.password_input.text
         if email in users and users[email] == password:
-            self.manager.current = 'gender_selection'
+            self.manager.current = 'main_menu_screen' 
         else:
             self.show_error_popup()
 
@@ -241,6 +242,7 @@ class MyApp(App):
         sm = ScreenManager()
         sm.add_widget(LoginScreen(name='login_screen'))
         sm.add_widget(SignUpScreen(name='sign_up_screen'))
+        sm.add_widget(MainMenuScreen(name='main_menu_screen')) 
         return sm
 
 if __name__ == "__main__":

@@ -1,5 +1,6 @@
 import platform
 import os
+from Height_Weight_Screen import HeightWeightScreen
 from kivy.uix.screenmanager import Screen
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
@@ -204,3 +205,11 @@ class ExerciseRecommendationScreen(Screen):
     def go_back(self, instance):
         """이전 화면으로 돌아가기"""
         self.manager.current = "height_weight_screen"
+
+def go_to_height_weight_screen(self, instance):
+    screen_manager = self.manager
+
+    if not screen_manager.has_screen("height_weight_screen"):
+        screen_manager.add_widget(HeightWeightScreen(name="height_weight_screen"))
+
+    screen_manager.current = "height_weight_screen"
