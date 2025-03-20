@@ -71,11 +71,11 @@ class LoginScreen(Screen):
         forgot_button = Button(text="Password를 잊으셨습니까?", size_hint=(1, 0.1), background_color=(0, 0, 0, 0), color=(0, 0, 1, 1), font_name='KoreanFont')
         self.layout.add_widget(forgot_button)
 
-        self.login_button = Button(text="Login", size_hint=(1, 0.2), background_color=(0, 0, 0, 1), font_name='KoreanFont')
+        self.login_button = Button(text="Login", size_hint=(1, 0.2), background_color=(0.6, 0.6, 0.6, 1), font_name='KoreanFont')
         self.login_button.bind(on_press=self.on_login)
         self.layout.add_widget(self.login_button)
 
-        sign_up_button = Button(text="sign Up", size_hint=(1, 0.1), background_color=(0, 0, 0, 1), color=(0, 0, 1, 1), font_name='KoreanFont')
+        sign_up_button = Button(text="sign Up", size_hint=(1, 0.1), background_color=(0.6, 0.6, 0.6, 1), color=(1, 1, 1, 1), font_name='KoreanFont')
         sign_up_button.bind(on_press=self.on_sign_up)
         self.layout.add_widget(sign_up_button)
 
